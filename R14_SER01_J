@@ -1,0 +1,12 @@
+// R14_SER01_J.java (non-compliant)
+// Directly deserializes untrusted user data.
+import java.io.*;
+
+public class R14_SER01_J {
+    public static void main(String[] args) throws Exception {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.ser"))) {
+            Object obj = ois.readObject(); // Vulnerable: arbitrary code execution risk
+            System.out.println("Deserialized object: " + obj);
+        }
+    }
+}
