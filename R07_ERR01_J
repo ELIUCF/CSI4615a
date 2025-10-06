@@ -1,0 +1,33 @@
+// R07_ERR01_J.java (non-compliant)
+// Exceptional Behavior: Do not allow exceptions to expose sensitive information
+
+// Leaks from Exception Message and Type
+class ExceptionExample {
+  public static void main(String[] args) throws FileNotFoundException {
+    // Linux stores a user's home directory path in
+    // the environment variable $HOME, Windows in %APPDATA%
+    FileInputStream fis =
+        new FileInputStream(System.getenv("APPDATA") + args[0]); 
+  }
+}
+
+// Wrapping and Rethrowing Sensitive Exception
+try {
+  FileInputStream fis =
+      new FileInputStream(System.getenv("APPDATA") + args[0]);
+} catch (FileNotFoundException e) {
+  // Log the exception
+  throw new IOException("Unable to retrieve file", e);
+}
+
+// Sanitized Exception
+class SecurityIOException extends IOException {/* ... */};
+ 
+try {
+  FileInputStream fis =
+      new FileInputStream(System.getenv("APPDATA") + args[0]);
+} catch (FileNotFoundException e) {
+  // Log the exception
+  throw new SecurityIOException();
+}
+
