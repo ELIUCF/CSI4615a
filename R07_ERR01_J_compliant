@@ -1,0 +1,51 @@
+// R07_ERR01_J.java (compliant)
+// This compliant solution implements the policy that only files that live in c:\homepath may be opened by the user and that the user is not allowed to discover anything about files outside this directory. The solution issues a terse error message when the file cannot be opened or the file does not live in the proper directory. Any information about files outside c:\homepath is concealed.
+
+// Security Policy
+class ExceptionExample {
+  public static void main(String[] args) {
+ 
+    File file = null;
+    try {
+      file = new File(System.getenv("APPDATA") +
+             args[0]).getCanonicalFile();
+      if (!file.getPath().startsWith("c:\\homepath")) {
+        System.out.println("Invalid file");
+        return;
+      }
+    } catch (IOException x) {
+      System.out.println("Invalid file");
+      return;
+    }
+ 
+    try {
+      FileInputStream fis = new FileInputStream(file);
+    } catch (FileNotFoundException x) {
+      System.out.println("Invalid file");
+      return;
+    }
+  }
+}
+
+// Restricted Input
+class ExceptionExample {
+  public static void main(String[] args) {
+    FileInputStream fis = null;
+    try {
+      switch(Integer.valueOf(args[0])) {
+        case 1:
+          fis = new FileInputStream("c:\\homepath\\file1");
+          break;
+        case 2:
+          fis = new FileInputStream("c:\\homepath\\file2");
+          break;
+        //...
+        default:
+          System.out.println("Invalid option");
+          break;
+      }     
+    } catch (Throwable t) {
+      MyExceptionReporter.report(t); // Sanitize
+    }
+  }
+}

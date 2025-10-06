@@ -1,0 +1,14 @@
+// R09_LCK05_J.java (compliant)
+// This compliant solution uses a static private final lock to protect the counter field and consequently lacks any dependence on external synchronization. This solution also complies with LCK00-J. Use private final lock objects to synchronize classes that may interact with untrusted code.
+
+/* This class is thread-safe */
+public final class CountHits {
+  private static int counter;
+  private static final Object lock = new Object();
+ 
+  public void incrementCounter() {
+    synchronized (lock) {
+      counter++;
+    }
+  }
+}

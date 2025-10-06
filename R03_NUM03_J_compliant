@@ -1,0 +1,9 @@
+// R03_NUM03_J.java (compliant)
+import java.io.DataInputStream;
+import java.io.IOException;
+
+public class R03_NUM03_J {
+    public static long getInteger(DataInputStream is) throws IOException {
+        return is.readInt() & 0xFFFFFFFFL; // mask to interpret as unsigned 32-bit
+    }
+}

@@ -1,0 +1,13 @@
+// R14_SER01_J.java (compliant)
+// This compliant solution declares the readObject() and writeObject() methods private and nonstatic to limit their accessibility
+// Reducing the accessibility also prevents malicious overriding of the two methods.
+private void writeObject(final ObjectOutputStream stream)
+    throws IOException {
+  stream.defaultWriteObject();
+}
+ 
+private void readObject(final ObjectInputStream stream)
+    throws IOException, ClassNotFoundException {
+  stream.defaultReadObject();
+}
+

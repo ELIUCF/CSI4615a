@@ -1,0 +1,21 @@
+// R00_IDS03_J.java  (compliant)
+import java.util.regex.Pattern;
+
+public class R00_IDS03_J {
+    private static final Pattern USER_PATTERN = Pattern.compile("[A-Za-z0-9]+");
+
+    public static String sanitizeUser(String username) {
+        if (username == null) return "unauthorized user";
+        return USER_PATTERN.matcher(username).matches() ? username : "unauthorized user";
+    }
+
+    public static void main(String[] args) {
+        String username = args.length > 0 ? args[0] : null;
+        boolean loginSuccessful = false; // demo
+        if (loginSuccessful) {
+            System.err.println("User login succeeded for: " + sanitizeUser(username));
+        } else {
+            System.err.println("User login failed for: " + sanitizeUser(username));
+        }
+    }
+}

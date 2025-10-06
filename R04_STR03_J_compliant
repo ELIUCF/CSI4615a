@@ -1,0 +1,14 @@
+// R04_STR03_J.java (compliant)
+import java.math.BigInteger;
+import java.util.Base64;
+
+public class R04_STR03_J {
+    public static void main(String[] args) {
+        BigInteger x = new BigInteger("530500452766");
+        byte[] byteArray = x.toByteArray();
+        String s = Base64.getEncoder().encodeToString(byteArray); // safe textual representation
+        byteArray = Base64.getDecoder().decode(s);
+        x = new BigInteger(byteArray);
+        System.out.println(x);
+    }
+}
