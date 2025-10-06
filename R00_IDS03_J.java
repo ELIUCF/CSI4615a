@@ -1,4 +1,6 @@
 // R00_IDS03_J.java  (non-compliant example)
+// Input Validation and Data Sanitization (IDS): 
+// IDS03-J: Do not log unsanitized user input
 public class R00_IDS03_J {
     public static void main(String[] args) {
         String username = args.length > 0 ? args[0] : "unknown";
@@ -10,3 +12,4 @@ public class R00_IDS03_J {
         }
     }
 }
+
