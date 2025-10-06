@@ -1,12 +1,22 @@
 // R14_SER01_J.java (non-compliant)
 // Directly deserializes untrusted user data.
-import java.io.*;
-
-public class R14_SER01_J {
-    public static void main(String[] args) throws Exception {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.ser"))) {
-            Object obj = ois.readObject(); // Vulnerable: arbitrary code execution risk
-            System.out.println("Deserialized object: " + obj);
-        }
-    }
+public class Ser implements Serializable {
+  private final long serialVersionUID = 123456789;
+  private Ser() {
+    // Initialize
+  }
+  public static void writeObject(final ObjectOutputStream stream)
+    throws IOException {
+    stream.defaultWriteObject();
+  }
+  public static void readObject(final ObjectInputStream stream)
+      throws IOException, ClassNotFoundException {
+    stream.defaultReadObject();
+  }
 }
+
+//Serialization: Do not deviate from the proper signatures of serialization methods
+/*Deviating from the proper signatures of serialization methods can lead to unexpected behavior. 
+Failure to limit the accessibility of the readObject() and writeObject() methods can leave code vulnerable to untrusted invocations. 
+Declaring readResolve() and writeReplace() methods to be static or private can force subclasses to silently ignore them, while declaring them public allows them to be invoked by untrusted code.
+*/
