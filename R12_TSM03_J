@@ -1,0 +1,25 @@
+// R12_TSM03_J.java (non-compliant)
+// Thread Safety Misc.: Do Not Publish Partially Intiailized Objects
+// This noncompliant code example constructs a Helper object in the initialize() method of the Foo class. 
+// The Helper object's fields are initialized by its constructor.
+class Foo {
+  private Helper helper;
+ 
+  public Helper getHelper() {
+    return helper;
+  }
+ 
+  public void initialize() {
+    helper = new Helper(42);
+  }
+}
+ 
+public class Helper {
+  private int n;
+ 
+  public Helper(int n) {
+    this.n = n;
+  }
+  // ...
+}
+
