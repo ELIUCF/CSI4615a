@@ -1,16 +1,13 @@
 // R14_SER01_J.java (compliant)
-// Uses ObjectInputFilter to restrict allowed classes during deserialization.
-import java.io.*;
-
-public class R14_SER01_J {
-    public static void main(String[] args) throws Exception {
-        ObjectInputFilter filter = ObjectInputFilter.Config.createFilter("java.base/*;!*");
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.ser"))) {
-            ois.setObjectInputFilter(filter);
-            Object obj = ois.readObject();
-            System.out.println("Deserialized safe object: " + obj);
-        } catch (InvalidClassException | SecurityException e) {
-            System.out.println("Deserialization rejected: " + e.getMessage());
-        }
-    }
+// This compliant solution declares the readObject() and writeObject() methods private and nonstatic to limit their accessibility
+// Reducing the accessibility also prevents malicious overriding of the two methods.
+private void writeObject(final ObjectOutputStream stream)
+    throws IOException {
+  stream.defaultWriteObject();
 }
+ 
+private void readObject(final ObjectInputStream stream)
+    throws IOException, ClassNotFoundException {
+  stream.defaultReadObject();
+}
+
