@@ -3,12 +3,12 @@
  *  Execution:    java Cis4615a
  *
  *  Prints 
- *    "Hello, World - from the class of CIS4615 - Fall 2022 -UCF _Christina Nguyen_".
+ *    "Hello, World - from the class of CIS4615 - Fall 2025 -UCF _Elijah Watkins_".
  *  By tradition, this is everyone's first program.
  *
  * Revision History:
  *   % java Cis4615a
- *  Hello, World - from the class of CIS4615 - Fall 2022 - UCF
+ *  Hello, World - from the class of CIS4615 - Fall 2025 - UCF
  *  %
  *
  ******************************************************************************/
@@ -17,7 +17,7 @@ public class Cis4615a {
 
     public static void main(String[] args) {
         // Prints "Hello, World" to the terminal window.
-        System.out.println("Hello, World - from the class of CIS4615 - Fall 2022 - UCF _Christina Nguyen_");
+        System.out.println("Hello, World - from the class of CIS4615 - Fall 2025 - UCF _Elijah Watkins_");
     }
 
 }
