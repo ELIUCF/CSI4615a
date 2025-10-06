@@ -1,0 +1,23 @@
+// R12_IDS07_J.java (compliant)
+// Restricts file access to a specific safe directory and validates input.
+import java.io.*;
+
+public class R12_IDS07_J {
+    private static final File BASE_DIR = new File("user_data");
+
+    public static void main(String[] args) throws IOException {
+        if (args.length == 0) {
+            System.out.println("Usage: java R12_IDS07_J <filename>");
+            return;
+        }
+
+        File requestedFile = new File(BASE_DIR, args[0]).getCanonicalFile();
+        if (!requestedFile.getPath().startsWith(BASE_DIR.getCanonicalPath())) {
+            throw new SecurityException("Invalid file path: " + requestedFile);
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(requestedFile))) {
+            System.out.println("Reading first line: " + br.readLine());
+        }
+    }
+}

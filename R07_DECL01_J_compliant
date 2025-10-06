@@ -1,0 +1,19 @@
+// R07_DECL01_J.java (compliant)
+// Credentials loaded securely from environment variables or config.
+public class R07_DECL01_J {
+    public static void main(String[] args) {
+        String username = System.getenv("APP_USER");
+        String password = System.getenv("APP_PASS");
+
+        if (username == null || password == null) {
+            System.out.println("Credentials not set in environment variables.");
+            return;
+        }
+
+        if ("admin".equals(username) && "securePass!".equals(password)) {
+            System.out.println("Login successful (secure demo)");
+        } else {
+            System.out.println("Login failed");
+        }
+    }
+}
