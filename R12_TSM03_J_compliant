@@ -1,0 +1,17 @@
+// R12_TSM03_J.java (compliant)
+// Synchronization
+// Appropriate use of method synchronization can prevent publication of references to partially initialized objects, as shown in this compliant solution
+class Foo {
+  private Helper helper;
+ 
+  public synchronized Helper getHelper() {
+    return helper;
+  }
+ 
+  public synchronized void initialize() {
+    helper = new Helper(42);
+  }
+}
+/*
+Synchronizing both methods guarantees that they cannot execute concurrently. If one thread were to call initialize() just before another thread called getHelper(), the synchronized initialize() method would always finish first. The synchronized keywords establish a happens-before relationship between the two threads. Consequently, the thread calling getHelper() would see either the fully initialized Helper object or an absent Helper object (that is, helper would contain a null reference). This approach guarantees proper publication both for immutable and mutable members.
+*/
